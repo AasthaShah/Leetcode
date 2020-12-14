@@ -1,0 +1,72 @@
+/**
+The question is as follows : 
+
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+ 
+
+Example 1:
+
+Input: s = "()"
+Output: true
+Example 2:
+
+Input: s = "()[]{}"
+Output: true
+Example 3:
+
+Input: s = "(]"
+Output: false
+Example 4:
+
+Input: s = "([)]"
+Output: false
+Example 5:
+
+Input: s = "{[]}"
+Output: true
+ 
+
+Constraints:
+
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
+**/
+
+/** -----------------------------------------------------------------------Solution --------------------------------------------------------- **/
+
+import java.util.*;
+class Solution {
+    public static char getPartner(char c) {
+        if(c == ')') return '(';
+        else if (c == ']') return '[';
+        return '{';
+    }
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for(int i = 0;i<s.length();i++) {
+            if(s.charAt(i) == '(' || s.charAt(i) == '{' || s.charAt(i) == '[') {
+                stack.push(s.charAt(i));
+            } else {
+                char x = getPartner(s.charAt(i));
+                if(stack.size() != 0) {
+                     if(stack.peek() == x) {
+                    stack.pop();
+                }
+                else {
+                    return false;
+                }
+            } else {
+                    return false;
+                }
+               
+            }
+        }
+        if(stack.size() > 0) return false;
+        return true;
+    }
+}
